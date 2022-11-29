@@ -6,12 +6,11 @@
 /*   By: dtelnov <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 18:52:13 by dtelnov           #+#    #+#             */
-/*   Updated: 2022/11/28 11:35:46 by dtelnov          ###   ########.fr       */
+/*   Updated: 2022/11/28 15:31:28 by dtelnov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fractol.h"
-#include <stdio.h>
 
 typedef struct s_vars {
 	void	*mlx;
@@ -20,12 +19,11 @@ typedef struct s_vars {
 
 int	ft_close(int keycode, t_vars *vars)
 {
-	printf("Key pressed : %x\n",keycode);
+	printf("Key pressed : 0x%.4x\n",keycode);
 	if (keycode == XK_ESCAPE)
 	{
 		mlx_destroy_window(vars->mlx, vars->win);
 		exit(0);
-		return (1);
 	}
 	return (0);
 }
@@ -59,11 +57,6 @@ int	main(void)
 	unsigned int		x = 0;
 	unsigned int		y = 0;
 
-	/*const unsigned int COLOR_TABLE[] = {
-    0x00000000, 0x00FFFFFF, 0x00FF0000, 0x0000FF00, 0x000000FF, 0x00FFFF00, 0x0000FFFF, 0x00FF00FF, 0x00C0C0C0, 0x00808080, 
-    0x00800000, 0x00808000, 0x00008000, 0x00800080, 0x00008080, 0x00000080
-	};*/
-
 	const unsigned int COLOR_TABLE[] = {
     0xf7df, 0xff5a, 0x07ff, 0x7ffa, 0xf7ff, 0xf7bb, 0xff38, 0xff59, 0x001f, 0x895c, 
     0xa145, 0xddd0, 0x5cf4, 0x7fe0, 0xd343, 0xfbea, 0x64bd, 0xffdb, 0xd8a7, 0x07ff, 
@@ -83,7 +76,7 @@ int	main(void)
 	};
 
 	vars.mlx = mlx_init();
-	vars.win = mlx_new_window(vars.mlx, OUTPUT_WIDTH, OUTPUT_HEIGHT, "Implementer un fractale");
+	vars.win = mlx_new_window(vars.mlx, OUTPUT_WIDTH, OUTPUT_HEIGHT, "Fract-ol");
 	img.img = mlx_new_image(vars.mlx, OUTPUT_WIDTH, OUTPUT_HEIGHT);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 	while (y < OUTPUT_HEIGHT)
@@ -95,7 +88,8 @@ int	main(void)
 			long double p_r = 1.5 * (x - OUTPUT_WIDTH / 2.0) / (0.5 * ZOOM * OUTPUT_WIDTH) + START_X;
 			long double new_r = 0, new_i = 0, old_r = 0, old_i = 0;
 			unsigned int i = 0;
-			while ((new_r * new_r + new_i * new_i) < 4.0 && i < MAX_ITERATION) {
+			while ((new_r * new_r + new_i * new_i) < 4.0 && i < MAX_ITERATION)
+			{
                 old_r = new_r;
                 old_i = new_i;
                 new_r = old_r * old_r - old_i * old_i + p_r;
@@ -109,8 +103,7 @@ int	main(void)
 		++y;
 	}
 	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
-	if (mlx_hook(vars.win, 2, 1L<<0, ft_close, &vars) == 1)
-		return(0);
+	mlx_hook(vars.win, 2, 1L<<0, ft_close, &vars);
 	mlx_loop(vars.mlx);
 	return (0);
 }
