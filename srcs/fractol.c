@@ -6,7 +6,7 @@
 /*   By: dtelnov <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 18:52:13 by dtelnov           #+#    #+#             */
-/*   Updated: 2022/11/28 15:31:28 by dtelnov          ###   ########.fr       */
+/*   Updated: 2022/12/01 17:25:55 by dtelnov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int	ft_close(int keycode, t_vars *vars)
 }
 
 typedef struct s_data {
+	void	*mlx;
+	void	*win;
 	void	*img;
 	char	*addr;
 	int		bits_per_pixel;
@@ -46,14 +48,13 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 
 int	main(void)
 {
-	t_vars	vars;
-	t_data	img;
+	t_data	all;
 	const unsigned int	MAX_ITERATION = 142;
 	const unsigned int	OUTPUT_WIDTH = 1080;
 	const unsigned int	OUTPUT_HEIGHT = 920;
 	const long double	START_X = -0.75;
 	const long double	START_Y = 0.0;
-	const long double	ZOOM = 1.1;
+	const long double	ZOOM = 3.0;
 	unsigned int		x = 0;
 	unsigned int		y = 0;
 
@@ -75,10 +76,10 @@ int	main(void)
     0xffe0, 0x9e66, 0x0000
 	};
 
-	vars.mlx = mlx_init();
-	vars.win = mlx_new_window(vars.mlx, OUTPUT_WIDTH, OUTPUT_HEIGHT, "Fract-ol");
-	img.img = mlx_new_image(vars.mlx, OUTPUT_WIDTH, OUTPUT_HEIGHT);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+	all.mlx = mlx_init();
+	all.win = mlx_new_window(all.mlx, OUTPUT_WIDTH, OUTPUT_HEIGHT, "Fract-ol");
+	all.img = mlx_new_image(all.mlx, OUTPUT_WIDTH, OUTPUT_HEIGHT);
+	all.addr = mlx_get_data_addr(all.img, &all.bits_per_pixel, &all.line_length, &all.endian);
 	while (y < OUTPUT_HEIGHT)
 	{
 		x = 0;
@@ -97,13 +98,13 @@ int	main(void)
                 ++i;
             }
 			unsigned int color = COLOR_TABLE[i];
-			my_mlx_pixel_put(&img, x, y, color);
+			my_mlx_pixel_put(&all, x, y, color);
 			++x;
 		}
 		++y;
 	}
-	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
-	mlx_hook(vars.win, 2, 1L<<0, ft_close, &vars);
-	mlx_loop(vars.mlx);
+	mlx_put_image_to_window(all.mlx, all.win, all.img, 0, 0);
+	mlx_hook(all.win, 2, 1L<<0, ft_close, &all);
+	mlx_loop(all.mlx);
 	return (0);
 }
