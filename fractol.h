@@ -6,7 +6,7 @@
 /*   By: dtelnov <dtelnov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 18:53:06 by dtelnov           #+#    #+#             */
-/*   Updated: 2022/12/02 01:19:08 by dtelnov          ###   ########.fr       */
+/*   Updated: 2022/12/02 03:33:27 by dtelnov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <errno.h>
+# include <math.h>
 
 # define XK_ESCAPE 0xff1b
 # define MAX_ITERATION 141
@@ -33,8 +34,8 @@ typedef struct s_data {
 	void	*win;
 	void	*img;
 	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
+	int		bpp;
+	int		ll;
 	int		endian;
 }				t_data;
 
@@ -51,9 +52,9 @@ typedef struct s_coordinates {
 
 void			my_mlx_pixel_put(t_data *data, int x, int y, int color);
 unsigned short	calcul_mandelbrot(t_coordinates *m);
-void			render_image(t_data *all);
+void			render_image(t_data *all, unsigned int *num_zooms);
 int				get_color(int i);
-int				ft_close(int keycode, t_data *data);
+int				hdl_keyboard(int keycode, t_data *data, unsigned int *num_zooms);
 int				ft_close_mouse(t_data *data);
 
 #endif

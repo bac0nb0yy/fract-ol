@@ -3,7 +3,7 @@ OBJ = $(src:.c=.o)
 NAME = fractol
 
 %.o: %.c
-	$(CC) -Wall -Wextra -Werror -I/usr/include -Imlx_linux -O3 -c $< -o $@
+	$(CC) -g -Wall -Wextra -Werror -I/usr/include -Imlx_linux -O3 -c $< -o $@
 
 all: $(NAME)
 
