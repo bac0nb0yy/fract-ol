@@ -6,7 +6,7 @@
 /*   By: dtelnov <dtelnov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 23:51:24 by dtelnov           #+#    #+#             */
-/*   Updated: 2022/12/02 03:21:23 by dtelnov          ###   ########.fr       */
+/*   Updated: 2022/12/02 09:46:07 by dtelnov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ void	my_mlx_pixel_put(t_data *all, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-unsigned short	calcul_mandelbrot(t_coordinates *m)
+unsigned int	calcul_mandelbrot(t_coordinates *m)
 {
-	unsigned short	i;
+	unsigned int	i;
 
 	i = 0;
 	m->n_r = 0;
@@ -43,18 +43,18 @@ unsigned short	calcul_mandelbrot(t_coordinates *m)
 void	render_image(t_data *all, unsigned int *num_zooms)
 {
 	t_coordinates	m;
-	unsigned short	color;
-	float			real_zoom;
+	unsigned int	color;
+	float			r_zoom;
 
-	real_zoom = (0.5 * (ZOOM * pow((double)ZOOM_FACTOR, (double)*num_zooms)));
+	r_zoom = (0.5 * (ZOOM * pow((double)ZOOM_FACTOR, (double)*num_zooms)));
 	m.y = 0;
 	while (m.y < HEIGHT)
 	{
 		m.x = 0;
-		m.p_i = 1.5 * (m.y - HEIGHT / 2.0) / (real_zoom * HEIGHT) + START_Y;
+		m.p_i = 1.5 * (m.y - HEIGHT / 2.0) / (r_zoom * HEIGHT) + START_Y;
 		while (m.x < WIDTH)
 		{
-			m.p_r = 1.5 * (m.x - WIDTH / 2.0) / (real_zoom * ZOOM * WIDTH) + START_X;
+			m.p_r = 1.5 * (m.x - WIDTH / 2.0) / (r_zoom * WIDTH) + START_X;
 			color = calcul_mandelbrot(&m);
 			my_mlx_pixel_put(all, m.x, m.y, color);
 			++m.x;
