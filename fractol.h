@@ -6,7 +6,7 @@
 /*   By: dtelnov <dtelnov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 18:53:06 by dtelnov           #+#    #+#             */
-/*   Updated: 2022/12/04 02:16:07 by dtelnov          ###   ########.fr       */
+/*   Updated: 2022/12/04 03:17:18 by dtelnov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,13 @@
 # include <math.h>
 # include <stdio.h>
 
-# define XK_ESCAPE 0xff1b
+# define ESCAPE 0xff1b
+# define ZOOM_IN 0xffab
+# define ZOOM_OUT 0xffad
+# define L_ARROW 0xff51
+# define T_ARROW 0xff52
+# define R_ARROW 0xff53
+# define B_ARROW 0xff54
 # define MAX_ITERATION 141
 # define WIDTH 1080
 # define HEIGHT 920
@@ -65,8 +71,15 @@ void			my_mlx_pixel_put(t_data *data, int x, int y, int color);
 unsigned int	calcul_mandelbrot(t_coordinates *m);
 void			render_image(t_data *all, t_movements *moves);
 int				get_color(int i);
-int				hdl_keyboard(int keycode, t_data *data, t_movements *movs);
+int				hdl_keyboard(int keycode, t_data *data, t_movements *moves);
 int				ft_close_mouse(t_data *data);
 int				hdl_mouse(int button, int x, int y, t_data *data);
+void			hdl_escape(t_data *data, t_movements *moves);
+void			hdl_zoom_out(t_data *data, t_movements *moves);
+void			hdl_zoom_in(t_data *data, t_movements *moves);
+void			hdl_left_arrow(t_data *data, t_movements *moves);
+void			hdl_top_arrow(t_data *data, t_movements *moves);
+void			hdl_right_arrow(t_data *data, t_movements *moves);
+void			hdl_bottom_arrow(t_data *data, t_movements *moves);
 
 #endif
