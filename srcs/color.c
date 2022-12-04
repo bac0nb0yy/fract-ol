@@ -6,7 +6,7 @@
 /*   By: dtelnov <dtelnov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 01:10:52 by dtelnov           #+#    #+#             */
-/*   Updated: 2022/12/02 09:44:59 by dtelnov          ###   ########.fr       */
+/*   Updated: 2022/12/04 00:53:39 by dtelnov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	get_color(int i)
 {
-	const int	color_table[] = {6552852, 14906328, 10012341, 15665891, 14740117};
+	const int	color_table[] = {3079915, 7716810, 1475063, 3024725, 9704448};
 
 	if (i == MAX_ITERATION)
 		return (0);
-	return (color_table[i % sizeof(141)]);
+	return (color_table[i % sizeof(5)]);
 }
