@@ -6,7 +6,7 @@
 /*   By: dtelnov <dtelnov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 18:53:06 by dtelnov           #+#    #+#             */
-/*   Updated: 2022/12/04 03:17:18 by dtelnov          ###   ########.fr       */
+/*   Updated: 2022/12/05 01:32:36 by dtelnov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 # define ZOOM 1.1
 # define ZOOM_FACTOR 1.1
 
-typedef struct s_data {
+typedef struct s_all {
 	void	*mlx;
 	void	*win;
 	void	*img;
@@ -45,7 +45,13 @@ typedef struct s_data {
 	int		bpp;
 	int		ll;
 	int		endian;
-}				t_data;
+	double	num_zooms;
+	double	num_x;
+	double	num_y;
+	double	r_zoom;
+	double	r_x;
+	double	r_y;
+}				t_all;
 
 typedef struct s_coordinates {
 	double			p_i;
@@ -58,28 +64,20 @@ typedef struct s_coordinates {
 	unsigned short	y;
 }				t_coordinates;
 
-typedef struct s_movements {
-	double	num_zooms;
-	double	num_x;
-	double	num_y;
-	double	r_zoom;
-	double	r_x;
-	double	r_y;
-}				t_movements;
-
-void			my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void			my_mlx_pixel_put(t_all *all, int x, int y, int color);
 unsigned int	calcul_mandelbrot(t_coordinates *m);
-void			render_image(t_data *all, t_movements *moves);
+void			render_image(t_all *all);
 int				get_color(int i);
-int				hdl_keyboard(int keycode, t_data *data, t_movements *moves);
-int				ft_close_mouse(t_data *data);
-int				hdl_mouse(int button, int x, int y, t_data *data);
-void			hdl_escape(t_data *data, t_movements *moves);
-void			hdl_zoom_out(t_data *data, t_movements *moves);
-void			hdl_zoom_in(t_data *data, t_movements *moves);
-void			hdl_left_arrow(t_data *data, t_movements *moves);
-void			hdl_top_arrow(t_data *data, t_movements *moves);
-void			hdl_right_arrow(t_data *data, t_movements *moves);
-void			hdl_bottom_arrow(t_data *data, t_movements *moves);
+int				hdl_keyboard(int keycode, t_all *all);
+int				ft_close_mouse(t_all *all);
+int				hdl_mouse(int button, int x, int y, t_all *all);
+void			hdl_escape(t_all *all);
+void			hdl_zoom_out(t_all *all);
+void			hdl_zoom_in(t_all *all);
+void			hdl_left_arrow(t_all *all);
+void			hdl_top_arrow(t_all *all);
+void			hdl_right_arrow(t_all *all);
+void			hdl_bottom_arrow(t_all *all);
+void			clear_all(t_all *all);
 
 #endif
